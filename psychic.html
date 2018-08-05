@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="start-area">
+        <p>Press any key to Start!</p>
+    </div>
+
+    <div id="current-word-area">
+        <p>currentWordArray[0]</p>
+    </div>
+    <div id="guesses-remaining-area">
+        Number of Guesses Remaining
+    </div>
+
+    <div id="letters-guessed-area">
+        <p>Letters already guessed</p>
+        <p id="letters-guessed">______</p>
+    </div>
+
+
+
+
+
+    <script type="text/javascript">
+
+
+    //stores some random words.  Computer guesses from this array.
+    var randomArray = ["cat", "dog", "bird", "rhino"]
+
+    //setting up wins, losses, and #of guesses remaining.//
+    var wins = 0
+    var lose = 0
+    var guessesRemaining = 10
+    
+
+    // Next, we give JavaScript a function to execute when onkeyup event fires. ****** Ending } is at end of program*********
+    document.onkeyup = function(event) {
+    
+    // Determines which key was pressed.
+    var userGuess = event.key;
+    
+
+    //create an array to hold user guesses.
+    guessArray = [];
+
+    //puts guess into guessArray 
+    guessArray.push(userGuess);
+    
+    console.log(guessArray);
+
+    //create an array to hold correct guesses
+    correctLettersArray = [];
+
+    //puts correct guesses into correctLetterArray
+    correctLettersArray.push();
+
+    //create an array to hold incorrect guesses
+    wrongLettersArray = [];
+
+    //puts wrong guesses into wrongLettersArray
+    wrongLettersArray.push();
+    
+    //chooses a random word from randomArray
+    var currentWord =randomArray[Math.floor(Math.random() * randomArray.length)]
+    console.log(currentWord);
+
+    //Creates a new empty array to hold current word//
+    var currentWordArray = [];
+
+    //breaks currentWord into individual letters and places into currentWordArray//
+    var currentWordArray= currentWord.split('');
+
+    console.log(currentWordArray);
+
+    //iterates through current random word array with word that has been split into individual letter strings.
+    function iterateArray(list) {
+        for (var j = 0; j < list.length; j++) {
+          console.log(list[j]);
+        }
+      }
+
+      //calls on the above function using the currentWordArray which is an array with each letter separated as a string.
+      iterateArray(currentWordArray);
+
+    guessesRemaining--;
+
+    console.log(guessesRemaining);
+
+      //holds current word until guesses = currentWordArray length, checks if any letters match, and fills in letters guessed and correct letters in html
+    if (guessArray.length < currentWordArray.length) {
+        if (userGuess === currentWordArray[0]) {
+            
+            
+            
+    }
+    
+    if (guessArray < currentWordArray.length) { 
+
+    }
+
+         // Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
+         var html =
+         "<p>You chose: " + userGuess + "</p>";
+
+        // Set the inner HTML contents of the #game div to our html string
+        document.getElementById("letters-guessed").innerHTML = html;
+
+
+   
+
+    
+    }
+    };
+    
+
+    </script>
+</body>
+</html>
