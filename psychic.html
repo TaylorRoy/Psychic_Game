@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,15 +14,20 @@
     </div>
 
     <div id="current-word-area">
-        <p>currentWordArray[0]</p>
+        <p>current word space holders. figure out how to populate when word changes.</p>
+
     </div>
     <div id="guesses-remaining-area">
-        Number of Guesses Remaining
+        Number of Guesses Remaining. figure out how to restart game when guesses = 8 and not to count if select letter already guessed.
     </div>
 
     <div id="letters-guessed-area">
-        <p>Letters already guessed</p>
-        <p id="letters-guessed">______</p>
+        <p>Letters already guessed. figure out how to populate with multiple letters.</p>
+        <div id="letters-guessed">
+        </div>
+        <div id="all-letters-guessed">
+            Letters: 
+        </div>
     </div>
 
 
@@ -31,95 +37,143 @@
     <script type="text/javascript">
 
 
-    //stores some random words.  Computer guesses from this array.
-    var randomArray = ["cat", "dog", "bird", "rhino"]
 
-    //setting up wins, losses, and #of guesses remaining.//
-    var wins = 0
-    var lose = 0
-    var guessesRemaining = 10
-    
 
-    // Next, we give JavaScript a function to execute when onkeyup event fires. ****** Ending } is at end of program*********
-    document.onkeyup = function(event) {
-    
-    // Determines which key was pressed.
-    var userGuess = event.key;
-    
 
-    //create an array to hold user guesses.
-    guessArray = [];
 
-    //puts guess into guessArray 
-    guessArray.push(userGuess);
-    
-    console.log(guessArray);
+        //stores some random words.  Computer guesses from this array.
+        var randomArray = ["cat", "dog", "bird"]
 
-    //create an array to hold correct guesses
-    correctLettersArray = [];
 
-    //puts correct guesses into correctLetterArray
-    correctLettersArray.push();
 
-    //create an array to hold incorrect guesses
-    wrongLettersArray = [];
+        //setting up wins, losses, and #of guesses remaining.//
+        var wins = 0
+        var lose = 0
+        var guessesRemaining = 10
 
-    //puts wrong guesses into wrongLettersArray
-    wrongLettersArray.push();
-    
-    //chooses a random word from randomArray
-    var currentWord =randomArray[Math.floor(Math.random() * randomArray.length)]
-    console.log(currentWord);
+        //create an array to hold user guesses.
+        var guessArray = [];
 
-    //Creates a new empty array to hold current word//
-    var currentWordArray = [];
+        //create an array to hold correct guesses
+        var correctLettersArray = [];
 
-    //breaks currentWord into individual letters and places into currentWordArray//
-    var currentWordArray= currentWord.split('');
+        //create an array to hold incorrect guesses
+        var wrongLettersArray = [];
 
-    console.log(currentWordArray);
+        //create and array to replace inex position of random word with underscores for HTML
+        var underScoreArray = [];
 
-    //iterates through current random word array with word that has been split into individual letter strings.
-    function iterateArray(list) {
-        for (var j = 0; j < list.length; j++) {
-          console.log(list[j]);
+
+        //chooses a random word from randomArray
+        var mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)]
+        console.log(mysteryWord);
+
+
+        //Creates a new empty array to hold current word//
+        var mysteryWordArray = [];
+
+        //breaks mysteryWord into individual letters and places into mysteryWordArray//
+        mysteryWordArray = mysteryWord.split('');
+
+
+        //iterates through current random word array with word that has been split into individual letter strings.
+        function iterateArray(list) {
+            for (var i = 0; i < list.length; i++) {
+                console.log(list[i]);
+            }
         }
-      }
 
-      //calls on the above function using the currentWordArray which is an array with each letter separated as a string.
-      iterateArray(currentWordArray);
+        //calls on the above function using the mysteryWordArray which is an array with each letter separated as a string.
+        iterateArray(mysteryWordArray);
 
-    guessesRemaining--;
 
-    console.log(guessesRemaining);
+        //iterates through mysteryWordArray and replaces each index with an "_".
+        function makeUnderscoreArray(list) {
+            for (var i = 0; i < list.length; i++) {
 
-      //holds current word until guesses = currentWordArray length, checks if any letters match, and fills in letters guessed and correct letters in html
-    if (guessArray.length < currentWordArray.length) {
-        if (userGuess === currentWordArray[0]) {
+                //var numberUnderscores = list.length;  //gets length of mysteryWordArray stores is as a number in variable
+
+                mysteryWordArray[i] = underScoreArray[i]; //sets index of mysteryWordArray to underScoreArray index
+                underScoreArray[i] = "_";
+                console.log(underScoreArray);
+            }
+        }
+
+        function displayWord() {
+            var wordToDisplay = []
+            for (var i = 0; i < mysteryWordArray.length; i++) {
+                if (guessArray.includes(mysteryWordArray[i])) {
+
+                    //create a p tag and stick letter in there
+                    wordToDisplay.push(mysteryWordArray[i]);
+                }
+                else{
+                    wordToDisplay.push("_");
+
+                }
+                //create a p tag and stick an _ in there
+
+            }
+            console.log(wordToDisplay);
+            document.getElementById("letters-guessed").innerHTML = wordToDisplay.join("");
+        }
+
+
+        // Next, we give JavaScript a function to execute when onkeyup event fires. ****** Ending } is at end of program*********
+        document.onkeyup = function (event) {
+
+            // Determines which key was pressed.
+            var userGuess = event.key;
+
+            //sets up condition to play game until guesses remainin = 0
+            // while (guessesRemaining > 0) {
+
+
+            //puts guess into guessArray 
+            guessArray.push(userGuess);
+
+            if (mysteryWordArray.indexOf(userGuess) > -1) {
+                correctLettersArray.push(userGuess);
+                
+                // checkIfPlayerWins() 
+            }
+            else {
+                wrongLettersArray.push(userGuess);
+                guessesRemaining--;
+                
+            }
+
+            displayWord()  //this function is updating the DOM
+            document.getElementById("all-letters-guessed").innerHTML= "Letters: " + guessArray.join('');
             
-            
-            
-    }
-    
-    if (guessArray < currentWordArray.length) { 
-
-    }
-
-         // Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
-         var html =
-         "<p>You chose: " + userGuess + "</p>";
-
-        // Set the inner HTML contents of the #game div to our html string
-        document.getElementById("letters-guessed").innerHTML = html;
 
 
-   
+            console.log(mysteryWordArray);
 
-    
-    }
-    };
-    
+            console.log("guesses remaining: " + guessesRemaining);
+
+            console.log("guessArray:" + guessArray);
+            console.log("mystery word array:" + mysteryWordArray);
+
+            //sets up a condition to iterate through mysteryWordArray to check for match with user guess.
+
+
+
+
+
+            // Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
+            // var html =
+            //     "<p>You chose: " + userGuess + "</p>";
+
+            // // Set the inner HTML contents of the #game div to our html string
+            // document.getElementById("letters-guessed").innerHTML = html;
+
+
+
+        };
+
 
     </script>
 </body>
+
 </html>
