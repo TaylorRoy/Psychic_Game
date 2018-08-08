@@ -8,172 +8,230 @@
     <title>Document</title>
 </head>
 
+<!--links bootstrap to html file-->
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+
 <body>
-    <div id="start-area">
-        <p>Press any key to Start!</p>
-    </div>
 
-    <div id="current-word-area">
-        <p>current word space holders. figure out how to populate when word changes.</p>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-text">
+            <h1 class="header">HANGMAN</h1> 
+        </span>
+    </nav>
 
-    </div>
-    <div id="guesses-remaining-area">
-        Number of Guesses Remaining. figure out how to restart game when guesses = 8 and not to count if select letter already guessed.
-    </div>
+    <!--create the grid system for the html display of the game  2 main colums- the left with six rows, and the right with 3 rows-->
 
-    <div id="letters-guessed-area">
-        <p>Letters already guessed. figure out how to populate with multiple letters.</p>
-        <div id="letters-guessed">
+    <div class="container">
+        <div class="row">
+            <div id="row1display" class="col-md-6">
+                <div class="row-md-6">
+                    <p id="welcome">Welcome to the game.  Press any key to start. </p>
+                </div>
+                <div class="row-md-12">
+                    <p id="hiddenWord">Hidden Word </p>
+                </div>
+                <div class="row-md-6"> 
+                    <p id="all-letters-guessed">Letters Guessed: </p>         
+                </div>
+                <div class="row-md-6">
+                    <p id="guessesLeft">Guesses Left </p>
+                </div>
+                <div class="row-md-6">
+                    <p id="wins">Wins </p> 
+                </div>
+                <div class="row-md-6">
+                    <p id="losses">Losses </p> 
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p>HANGMAN AREA</p>
+            </div>
         </div>
-        <div id="all-letters-guessed">
-            Letters: 
+
+
+       
+
+        <div id="current-word-area">
+            <p>current word space holders. figure out how to populate when word changes.</p>
+
         </div>
-    </div>
+        <div id="guesses-remaining-area">
+            Number of Guesses Remaining. figure out how to restart game when guesses = 8 and not to count if select letter already guessed.
+        </div>
+
+        <div id="letters-guessed-area">
+            <p>Letters already guessed. figure out how to populate with multiple letters.</p>
+            <div id="letters-guessed">
+            </div>
+            <div id=letters-guessed>
+                Letters:
+            </div>
+        </div>
 
 
 
 
 
-    <script type="text/javascript">
+        <script type="text/javascript">
 
 
 
 
 
 
-        //stores some random words.  Computer guesses from this array.
-        var randomArray = ["cat", "dog", "bird"]
+            //stores some random words.  Computer guesses from this array.
+            var randomArray = ["cat", "dog", "bird"]
 
 
 
-        //setting up wins, losses, and #of guesses remaining.//
-        var wins = 0
-        var lose = 0
-        var guessesRemaining = 10
+            //setting up wins, losses, and #of guesses remaining.//
+            var wins = 0
+            var lose = 0
+            var guessesRemaining = 10
 
-        //create an array to hold user guesses.
-        var guessArray = [];
+            //create an array to hold user guesses.
+            var guessArray = [];
 
-        //create an array to hold correct guesses
-        var correctLettersArray = [];
+            //create an array to hold correct guesses
+            var correctLettersArray = [];
 
-        //create an array to hold incorrect guesses
-        var wrongLettersArray = [];
+            //create an array to hold incorrect guesses
+            var wrongLettersArray = [];
 
-        //create and array to replace inex position of random word with underscores for HTML
-        var underScoreArray = [];
-
-
-        //chooses a random word from randomArray
-        var mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)]
-        console.log(mysteryWord);
+            //create and array to replace inex position of random word with underscores for HTML
+            var underScoreArray = [];
 
 
-        //Creates a new empty array to hold current word//
-        var mysteryWordArray = [];
-
-        //breaks mysteryWord into individual letters and places into mysteryWordArray//
-        mysteryWordArray = mysteryWord.split('');
+            //chooses a random word from randomArray
+            var mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)]
+            console.log(mysteryWord);
 
 
-        //iterates through current random word array with word that has been split into individual letter strings.
-        function iterateArray(list) {
-            for (var i = 0; i < list.length; i++) {
-                console.log(list[i]);
-            }
-        }
+            //Creates a new empty array to hold current word//
+            var mysteryWordArray = [];
 
-        //calls on the above function using the mysteryWordArray which is an array with each letter separated as a string.
-        iterateArray(mysteryWordArray);
-
-
-        //iterates through mysteryWordArray and replaces each index with an "_".
-        function makeUnderscoreArray(list) {
-            for (var i = 0; i < list.length; i++) {
-
-                //var numberUnderscores = list.length;  //gets length of mysteryWordArray stores is as a number in variable
-
-                mysteryWordArray[i] = underScoreArray[i]; //sets index of mysteryWordArray to underScoreArray index
-                underScoreArray[i] = "_";
-                console.log(underScoreArray);
-            }
-        }
-
-        function displayWord() {
-            var wordToDisplay = []
-            for (var i = 0; i < mysteryWordArray.length; i++) {
-                if (guessArray.includes(mysteryWordArray[i])) {
-
-                    //create a p tag and stick letter in there
-                    wordToDisplay.push(mysteryWordArray[i]);
+            //breaks mysteryWord into individual letters and places into mysteryWordArray//
+            mysteryWordArray = mysteryWord.split('');
+          
+           
+            //iterates through mysteryWordArray and replaces each index with an "_".
+            function makeUnderscoreArray(list) {
+                for (var i = 0; i < list.length; i++) {
+                   underScoreArray.push(i);
+                   underScoreArray[i]= "____, "
                 }
-                else{
-                    wordToDisplay.push("_");
+            }
+
+            makeUnderscoreArray(mysteryWordArray)
+
+            console.log("underscore array" + underScoreArray);
+            
+            //displays underscore array that is same length as mystery word in HTML at id hiddenWord.
+           // document.getElementById("hiddenWord").innerHTML = underScoreArray.join(", "); 
+
+
+            function displayWord() {
+                var wordToDisplay = []
+                for (var i = 0; i < mysteryWordArray.length; i++) {
+                    if (guessArray.includes(mysteryWordArray[i])) {
+
+                        //create a p tag and stick letter in there
+                        wordToDisplay.push(mysteryWordArray[i]);
+                    }
+                    else {
+                        wordToDisplay.push("_");
+
+                    }
+                    //create a p tag and stick an _ in there
 
                 }
-                //create a p tag and stick an _ in there
 
-            }
-            console.log(wordToDisplay);
-            document.getElementById("letters-guessed").innerHTML = wordToDisplay.join("");
-        }
-
-
-        // Next, we give JavaScript a function to execute when onkeyup event fires. ****** Ending } is at end of program*********
-        document.onkeyup = function (event) {
-
-            // Determines which key was pressed.
-            var userGuess = event.key;
-
-            //sets up condition to play game until guesses remainin = 0
-            // while (guessesRemaining > 0) {
-
-
-            //puts guess into guessArray 
-            guessArray.push(userGuess);
-
-            if (mysteryWordArray.indexOf(userGuess) > -1) {
-                correctLettersArray.push(userGuess);
-                
-                // checkIfPlayerWins() 
-            }
-            else {
-                wrongLettersArray.push(userGuess);
-                guessesRemaining--;
-                
+                 console.log(wordToDisplay);
+                document.getElementById("hiddenWord").innerHTML = wordToDisplay.join("___, "); //displays updated 
             }
 
-            displayWord()  //this function is updating the DOM
-            document.getElementById("all-letters-guessed").innerHTML= "Letters: " + guessArray.join('');
+
+            //displays wins in HTML
+            document.getElementById("wins").innerHTML = wins; 
+
+            //displays losses in HTML
+            document.getElementById("losses").innerHTML = lose; 
+
+            
+            
+            //create a condition to stop game when it reaches 0 guesses remaining.
             
 
+            // Next, we give JavaScript a function to execute when onkeyup event fires. ****** Ending } is at end of program*********
+            document.onkeyup = function (event) {
 
-            console.log(mysteryWordArray);
+                // Determines which key was pressed.
+                var userGuess = event.key;
 
-            console.log("guesses remaining: " + guessesRemaining);
-
-            console.log("guessArray:" + guessArray);
-            console.log("mystery word array:" + mysteryWordArray);
-
-            //sets up a condition to iterate through mysteryWordArray to check for match with user guess.
-
+                //sets up condition to play game until guesses remainin = 0
+                // while (guessesRemaining > 0) {
 
 
+                //puts guess into guessArray 
+                guessArray.push(userGuess);
+
+                if (mysteryWordArray.indexOf(userGuess) > -1) {
+                    correctLettersArray.push(userGuess);
+
+                    // checkIfPlayerWins() 
+                }
+                else {
+                    wrongLettersArray.push(userGuess);
+                    guessesRemaining--;
+
+                }
+
+                //displays guesses remaing in HTML
+            document.getElementById("guessesLeft").innerHTML = "<p> Guesses Remaining:" + guessesRemaining + "</p>"; 
+
+                if (guessesRemaining === 0) {
+                    var playAgain = prompt("You lost.  Click OK to play again.  Click Cancel if you don't want to play again.")
+                    if (playAgain = true) { //starts program over.  Think I need a play funtion to hold entire program or call document.onkeyup again?
+
+                    } 
+                    else {
+                        prompt("Good bye"); //stops program from running
+                        document.stop();
+                    }
+                }
+
+                displayWord()  //this function is updating the HTML id=Letters 
+                document.getElementById("all-letters-guessed").innerHTML = "Letters Guessed: " + guessArray.join(', ');
 
 
-            // Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
-            // var html =
-            //     "<p>You chose: " + userGuess + "</p>";
 
-            // // Set the inner HTML contents of the #game div to our html string
-            // document.getElementById("letters-guessed").innerHTML = html;
+                console.log(mysteryWordArray);
 
+                console.log("guesses remaining: " + guessesRemaining);
 
-
-        };
+                console.log("guessArray:" + guessArray);
+                console.log("mystery word array:" + mysteryWordArray);
 
 
-    </script>
+
+
+
+
+                // Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
+                // var html =
+                //     "<p>You chose: " + userGuess + "</p>";
+
+                // // Set the inner HTML contents of the #game div to our html string
+                // document.getElementById("letters-guessed").innerHTML = html;
+
+
+
+            };
+
+
+        </script>
 </body>
 
 </html>
