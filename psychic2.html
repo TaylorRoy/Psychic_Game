@@ -17,7 +17,7 @@
 
     <nav class="navbar navbar-light bg-light">
         <span class="navbar-text">
-            <h1 class="header">HANGMAN</h1>
+            <h1 class="header">HANGMAN</h1> 
         </span>
     </nav>
 
@@ -32,17 +32,17 @@
                 <div class="row-md-12">
                     <p id="hiddenWord">Hidden Word </p>
                 </div>
-                <div class="row-md-6">
-                    <p id="all-letters-guessed">Letters Guessed: </p>
+                <div class="row-md-6"> 
+                    <p id="all-letters-guessed">Letters Guessed: </p>         
                 </div>
                 <div class="row-md-6">
-                    <p id="guessesLeft">Guesses Left: 10 </p>
+                    <p id="guessesLeft">Guesses Left </p>
                 </div>
                 <div class="row-md-6">
-                    <p id="wins">Wins </p>
+                    <p id="wins">Wins </p> 
                 </div>
                 <div class="row-md-6">
-                    <p id="losses">Losses </p>
+                    <p id="losses">Losses </p> 
                 </div>
             </div>
             <div class="col-md-6">
@@ -50,17 +50,35 @@
             </div>
         </div>
 
-
+        
         <script type="text/javascript">
 
+            var welcome = prompt("Press any key to start.");
 
+           console.log("welcome" + welcome);
+                
+                function play(x){
+                if (x == true) {
+                    prompt("You want to play!");
+
+                    //put game here
+                }
+                else {
+                    prompt("You don't want to play.  see you next time!");
+                    break; //end game
+                }
+                }
+
+            play(welcome) //call on welcome to decide if play or not.
+            
+            
             //stores some random words.  Computer guesses from this array.
-            var randomArray = ["cat", "dog", "bird"];
+            var randomArray = ["cat", "dog", "bird"]
 
             //setting up wins, losses, and #of guesses remaining.//
-            var wins = 0;
-            var lose = 0;
-            var guessesRemaining = 10;
+            var wins = 0
+            var lose = 0
+            var guessesRemaining = 10
 
             //create an array to hold user guesses.
             var guessArray = [];
@@ -77,39 +95,32 @@
 
             //chooses a random word from randomArray
             var mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)]
-         
+            console.log(mysteryWord);
+
 
             //Creates a new empty array to hold current word//
             var mysteryWordArray = [];
 
             //breaks mysteryWord into individual letters and places into mysteryWordArray//
             mysteryWordArray = mysteryWord.split('');
-
+          
+           
             //iterates through mysteryWordArray and replaces each index with an "_".
             function makeUnderscoreArray(list) {
                 for (var i = 0; i < list.length; i++) {
-                    underScoreArray.push(i);
-                    underScoreArray[i] = "_"
+                   underScoreArray.push(i);
+                   underScoreArray[i]= "____, "
                 }
-            };
+            }
 
             //calls on makeUnderscoreArray with mysteryWordArray argument.
-            makeUnderscoreArray(mysteryWordArray);
+            makeUnderscoreArray(mysteryWordArray)
 
-            //reset game function
-            function reset() {
-                //chooses a random word from randomArray
-                var mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)]
-                guessesRemaining = 10;
-                guessArray = [];
-            };
-
+            console.log("underscore array" + underScoreArray);
+            
             //displays underscore array that is same length as mystery word in HTML at id hiddenWord.
             function displayWord() {
-
-                //declare 
                 var wordToDisplay = []
-
                 for (var i = 0; i < mysteryWordArray.length; i++) {
                     if (guessArray.includes(mysteryWordArray[i])) {
 
@@ -122,40 +133,22 @@
                     }
                 }
 
-                //scoring- checks if wordToDisply contains "_" and if guessesRemaining = 0   
-                if (wordToDisplay.includes("_") && guessesRemaining === 0) {
-                    var lostplayAgain = prompt("You lost!  Enter 'y' to play again.  Enter 'n' to stop");
+                 console.log(wordToDisplay);
+                document.getElementById("hiddenWord").innerHTML = wordToDisplay.join("___, "); 
+            }
 
-                    if (lostplayAgain === 'y') {
-                        prompt("You chose to play again.  Click OK buttom to start.");
-                        reset();  //use reset() to reset game.
-
-                    }
-                    else {
-                        prompt("You chose to end the game.  Goodbye!");
-                        //break??????????????
-                    }
-                }
-                if (wordToDisplay.includes("_") !== true && guessesRemaining > 0) {
-                    var winPlayAgain = prompt("You Won! Enter 'y' to play again.  Enter 'n' to stop");
-                    if (winPlayAgain === 'y') {
-                        prompt("You chose to play again.  Click OK buttom to start.");
-                        reset();
-                    }
-                    else {
-                        prompt("You chose to end the game.  Goodbye!");
-                        //break??????????????
-                    }
-                }
-
-                document.getElementById("hiddenWord").innerHTML = wordToDisplay.join(" , ");
-            };
+            
 
             //displays wins in HTML
-            document.getElementById("wins").innerHTML ="<p>Wins: "+ wins + "</p>";
+            document.getElementById("wins").innerHTML = wins; 
 
             //displays losses in HTML
-            document.getElementById("losses").innerHTML ="<p>Losses: " + lose + "</p>";
+            document.getElementById("losses").innerHTML = lose; 
+
+            
+            
+            
+            
 
             // Next, we give JavaScript a function to execute when onkeyup event fires. ****** Ending } is at end of program*********
             document.onkeyup = function (event) {
@@ -166,40 +159,48 @@
                 //sets up condition to play game until guesses remainin = 0
                 // while (guessesRemaining > 0) {
 
-                if (guessArray.includes(userGuess) === true ) { 
-                    alert ("Ooops!  You already guessed that. Try a different letter.");   
-                    return;
-                };
 
                 //puts guess into guessArray 
-                guessArray.push(userGuess); 
+                guessArray.push(userGuess);
 
                 if (mysteryWordArray.indexOf(userGuess) > -1) {
                     correctLettersArray.push(userGuess);
+
+                    // checkIfPlayerWins() 
                 }
                 else {
-                    //puts letters in wrongLettersArray
                     wrongLettersArray.push(userGuess);
                     guessesRemaining--;
-                }   
+                }
 
                 //displays guesses remaing in HTML
-                document.getElementById("guessesLeft").innerHTML = "<p> Guesses Remaining:" + guessesRemaining + "</p>";
+            document.getElementById("guessesLeft").innerHTML = "<p> Guesses Remaining:" + guessesRemaining + "</p>"; 
 
-                //this function is updating the HTML id=all-letters-guessed
-                displayWord();
-                 
-               
-               
-                // function end() {
-                 //   break;
-               // };
+                if (guessesRemaining === 0) {
+                    var playAgain = prompt("You lost.  Enter 'y' to play again.  Enter 'n' if you don't want to play again.")
+                    if (playAgain === 'y') { //starts program over.  Think I need a play funtion to hold entire program or call document.onkeyup again?
+                        play(welcome); //restarts game?
+                    } 
+                    else {
+                        prompt("Good bye"); //stops program from running
+                        break;
+                    }
+                }
 
-                //pushes guessArray into all letters guessed id in HTML.
+                displayWord()  //this function is updating the HTML id=all-letters-guessed 
                 document.getElementById("all-letters-guessed").innerHTML = "Letters Guessed: " + guessArray.join(', ');
 
-            }; //document.onkeyup curly
 
+
+                console.log(mysteryWordArray);
+
+                console.log("guesses remaining: " + guessesRemaining);
+
+                console.log("guessArray:" + guessArray);
+                console.log("mystery word array:" + mysteryWordArray);
+
+            }; //document.onkeyup curly
+           // } //play curly
         </script>
 </body>
 
