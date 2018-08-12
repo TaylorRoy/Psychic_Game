@@ -76,7 +76,7 @@
 
 
             //chooses a random word from randomArray
-            var mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)]
+            var mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)];
          
 
             //Creates a new empty array to hold current word//
@@ -85,71 +85,66 @@
             //breaks mysteryWord into individual letters and places into mysteryWordArray//
             mysteryWordArray = mysteryWord.split('');
 
-            //iterates through mysteryWordArray and replaces each index with an "_".
-            function makeUnderscoreArray(list) {
-                for (var i = 0; i < list.length; i++) {
-                    underScoreArray.push(i);
-                    underScoreArray[i] = "_"
-                }
-            };
-
-            //calls on makeUnderscoreArray with mysteryWordArray argument.
-            makeUnderscoreArray(mysteryWordArray);
+            
+           
 
             //reset game function
             function reset() {
                 //chooses a random word from randomArray
-                var mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)]
+                 guessArray = [];
+                 mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)];;
+                
                 guessesRemaining = 10;
-                guessArray = [];
+                correctLettersArray = [];
+               
+
+                // clear the #all-letters-guessed
             };
+
+              //declare 
+              var wordToDisplay = []
 
             //displays underscore array that is same length as mystery word in HTML at id hiddenWord.
             function displayWord() {
-
-                //declare 
-                var wordToDisplay = []
-
+                 wordToDisplay = [];
                 for (var i = 0; i < mysteryWordArray.length; i++) {
                     if (guessArray.includes(mysteryWordArray[i])) {
 
                         //puts mysteryWordArray letter in wordToDisplay at matching index
                         wordToDisplay.push(mysteryWordArray[i]);
+                        
                     }
                     else {
                         //puts __ in wordToDisplay at matching index
                         wordToDisplay.push("_");
-                    }
-                }
-
-                //scoring- checks if wordToDisply contains "_" and if guessesRemaining = 0   
-                if (wordToDisplay.includes("_") && guessesRemaining === 0) {
-                    var lostplayAgain = prompt("You lost!  Enter 'y' to play again.  Enter 'n' to stop");
-
-                    if (lostplayAgain === 'y') {
-                        prompt("You chose to play again.  Click OK buttom to start.");
-                        reset();  //use reset() to reset game.
-
-                    }
-                    else {
-                        prompt("You chose to end the game.  Goodbye!");
-                        //break??????????????
-                    }
-                }
-                if (wordToDisplay.includes("_") !== true && guessesRemaining > 0) {
-                    var winPlayAgain = prompt("You Won! Enter 'y' to play again.  Enter 'n' to stop");
-                    if (winPlayAgain === 'y') {
-                        prompt("You chose to play again.  Click OK buttom to start.");
-                        reset();
-                    }
-                    else {
-                        prompt("You chose to end the game.  Goodbye!");
-                        //break??????????????
+                        
                     }
                 }
 
                 document.getElementById("hiddenWord").innerHTML = wordToDisplay.join(" , ");
             };
+
+
+             //scoring- checks if wordToDisply contains "_" and if guessesRemaining = 0 
+             function score()  {
+             if (wordToDisplay.includes("_") === true && guessesRemaining === 0) {
+                    lose++;
+                    alert("You lost!");
+                    reset();  //use reset() to reset game.
+                    mysteryWordArray= [];
+                    wordToDisplay= [];
+                    }
+                else if (wordToDisplay.includes("_") !== true && guessesRemaining > 0) {
+                    
+                    wins++;
+                    alert("You Won!");
+                    reset();
+                    mysteryWordArray= [];
+                    wordToDisplay= [];
+                }
+            };
+
+            
 
             //displays wins in HTML
             document.getElementById("wins").innerHTML ="<p>Wins: "+ wins + "</p>";
@@ -157,13 +152,16 @@
             //displays losses in HTML
             document.getElementById("losses").innerHTML ="<p>Losses: " + lose + "</p>";
 
+
+ 
+
             // Next, we give JavaScript a function to execute when onkeyup event fires. ****** Ending } is at end of program*********
             document.onkeyup = function (event) {
 
                 // Determines which key was pressed.
                 var userGuess = event.key;
 
-                //sets up condition to play game until guesses remainin = 0
+                //sets up condition to play game until guesses remaining = 0
                 // while (guessesRemaining > 0) {
 
                 if (guessArray.includes(userGuess) === true ) { 
@@ -187,13 +185,33 @@
                 document.getElementById("guessesLeft").innerHTML = "<p> Guesses Remaining:" + guessesRemaining + "</p>";
 
                 //this function is updating the HTML id=all-letters-guessed
+
+
+console.log("mysteryWordArray-beforedisplay: " + mysteryWordArray);
+
                 displayWord();
-                 
+                
+
+
+console.log("guessArray-Before: " + guessArray);
+console.log("mysteryWord-before; " + mysteryWord);
+console.log("mysteryWordArray-before: " + mysteryWordArray);
+console.log("wordToDisplay-before;" + wordToDisplay);
+console.log("guessesRemainin-before:" + guessesRemaining);
+console.log("correctLettersArray-before:" + correctLettersArray); 
+
+            score();
+
+     
+console.log("guessArray-after: " + guessArray);
+console.log("mysteryWord-after; " + mysteryWord);
+console.log("mysteryWordArray-after: " + mysteryWordArray);
+console.log("wordToDisplay-after;" + wordToDisplay);
+console.log("guessesRemainin-after:" + guessesRemaining);
+console.log("correctLettersArray-after:" + correctLettersArray); 
+         
                
                
-                // function end() {
-                 //   break;
-               // };
 
                 //pushes guessArray into all letters guessed id in HTML.
                 document.getElementById("all-letters-guessed").innerHTML = "Letters Guessed: " + guessArray.join(', ');
