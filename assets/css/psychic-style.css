@@ -1,0 +1,46 @@
+.navbar {
+    background-color: #009900 !important;
+    border-bottom-width: 3px;
+border-bottom-style: solid;
+}
+
+.bg-light {
+    background-color: #009900 !important;
+}
+
+.navbar-light {
+    background-color: #009900 !important;
+}
+
+.navbar-text {
+    text-align: center;
+   
+}
+
+.container {
+    background-color: #fff;
+}
+
+p {
+    font-size: 24px;
+    padding-top: 16px;
+    height: 69px;
+}
+#row1display {
+    background-color:#99ff33;
+    border-right-width: 3px;
+border-right-style: solid;
+padding-right: 0px;
+}
+
+
+
+#row2display {
+    background-color: #99ff33;
+}
+
+.vegetable-image {
+    margin-top: 80px;
+    width: 100%;
+    height: 100$;
+}

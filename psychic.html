@@ -6,61 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./assets/css/psychic-style.css">
 </head>
 
 <!--links bootstrap to html file-->
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-    crossorigin="anonymous">
+
 
 <body>
 
     <nav class="navbar navbar-light bg-light">
-        <span class="navbar-text">
-            <h1 class="header">HANGMAN</h1>
+        <span class="navbar-text col-md-12">
+            <h1 class="header">VEGETABLE HANGMAN</h1>
         </span>
     </nav>
 
     <!--create the grid system for the html display of the game  2 main colums- the left with six rows, and the right with 3 rows-->
-
+<div class="background-pattern" solid; style="background-image:url(./assets/images/soil.jpg)">
     <div class="container">
         <div class="row">
             <div id="row1display" class="col-md-6">
                 <div class="row-md-6">
-                    <p id="welcome">Welcome to the game. </p>
+                    <h2 id="welcome">What vegetable am I thinking of?</h2>
                 </div>
                 <div class="row-md-12">
-                    <p id="hiddenWord">Hidden Word </p>
+                    <p id="hiddenWord">?, ?, ?, ?, ?</p>
                 </div>
                 <div class="row-md-6">
                     <p id="all-letters-guessed">Letters Guessed: </p>
                 </div>
                 <div class="row-md-6">
-                    <p id="guessesLeft">Guesses Left: 10 </p>
+                    <p id="guessesLeft">Guesses Left:  </p>
                 </div>
                 <div class="row-md-6">
-                    <p id="wins">Wins </p>
+                    <p id="wins">Wins: </p>
                 </div>
                 <div class="row-md-6">
-                    <p id="losses">Losses </p>
+                    <p id="losses">Losses: </p>
                 </div>
             </div>
-            <div class="col-md-6">
-                <p>HANGMAN AREA</p>
+            
+            <div id= "row2display" class="col-md-6">
+                <img class="vegetable-image" src="./assets/images/vegetables.jpg" alt="Vegetable">
             </div>
+            </div>
+       
         </div>
 
+</div>
 
         <script type="text/javascript">
-
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!GLOBAL VARIABLES AND FUNCTIONS!!!!!!!!!!!!!!!!!!!!!!!!!
 
             //stores some random words.  Computer guesses from this array.
-            var randomArray = ["cat", "dog", "bird"];
+            var randomArray = ["carrot", "lettuce", "brocolli", "onion", "celery", "radish", "kale", "asparagus", "cucumber", "cauliflower", "tomato", "eggplant", "zuchinni", "parsnip", "leek", "pepper"];
 
-            //setting up wins, losses, and #of guesses remaining.//
-            var wins = 0;
-            var lose = 0;
-            var guessesRemaining = 10;
+            
 
             //create an array to hold user guesses.
             var guessArray = [];
@@ -74,50 +79,47 @@
             //create and array to replace inex position of random word with underscores for HTML
             var underScoreArray = [];
 
-
             //chooses a random word from randomArray
             var mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)];
-         
 
             //Creates a new empty array to hold current word//
             var mysteryWordArray = [];
 
-            //breaks mysteryWord into individual letters and places into mysteryWordArray//
-            mysteryWordArray = mysteryWord.split('');
-
-            
-           
+        //setting up wins, losses, and #of guesses remaining.//
+        var wins = 0;
+            var lose = 0;
+            var guessesRemaining =  (Math.floor(mysteryWord.length * 1.5));
+            console.log(guessesRemaining);
 
             //reset game function
             function reset() {
                 //chooses a random word from randomArray
-                 guessArray = [];
-                 mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)];;
-                
-                guessesRemaining = 10;
+                guessArray = [];
+                mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)];;
+                mysteryWordArray = [];
+                wordToDisplay = [];
+                guessesRemaining = (Math.floor(mysteryWord.length * 1.5));
                 correctLettersArray = [];
-               
 
-                // clear the #all-letters-guessed
             };
 
-              //declare 
-              var wordToDisplay = []
+            //declare 
+            var wordToDisplay = []
 
             //displays underscore array that is same length as mystery word in HTML at id hiddenWord.
             function displayWord() {
-                 wordToDisplay = [];
+                wordToDisplay = [];
                 for (var i = 0; i < mysteryWordArray.length; i++) {
                     if (guessArray.includes(mysteryWordArray[i])) {
 
                         //puts mysteryWordArray letter in wordToDisplay at matching index
                         wordToDisplay.push(mysteryWordArray[i]);
-                        
+
                     }
                     else {
                         //puts __ in wordToDisplay at matching index
                         wordToDisplay.push("_");
-                        
+
                     }
                 }
 
@@ -125,35 +127,22 @@
             };
 
 
-             //scoring- checks if wordToDisply contains "_" and if guessesRemaining = 0 
-             function score()  {
-             if (wordToDisplay.includes("_") === true && guessesRemaining === 0) {
+            //scoring- checks if wordToDisply contains "_" and if guessesRemaining = 0 
+            function score() {
+                if (wordToDisplay.includes("_") === true && guessesRemaining === 0) {
                     lose++;
                     alert("You lost!");
                     reset();  //use reset() to reset game.
-                    mysteryWordArray= [];
-                    wordToDisplay= [];
-                    }
+                }
                 else if (wordToDisplay.includes("_") !== true && guessesRemaining > 0) {
-                    
+
                     wins++;
                     alert("You Won!");
                     reset();
-                    mysteryWordArray= [];
-                    wordToDisplay= [];
                 }
             };
 
-            
-
-            //displays wins in HTML
-            document.getElementById("wins").innerHTML ="<p>Wins: "+ wins + "</p>";
-
-            //displays losses in HTML
-            document.getElementById("losses").innerHTML ="<p>Losses: " + lose + "</p>";
-
-
- 
+            //!!!!!!!!!!!!!!START OF JAVASCRIPT GAME!!!!!!!!!!!!!!!!!!!!!!!
 
             // Next, we give JavaScript a function to execute when onkeyup event fires. ****** Ending } is at end of program*********
             document.onkeyup = function (event) {
@@ -161,16 +150,17 @@
                 // Determines which key was pressed.
                 var userGuess = event.key;
 
-                //sets up condition to play game until guesses remaining = 0
-                // while (guessesRemaining > 0) {
+                //breaks mysteryWord into individual letters and places into mysteryWordArray//
+                mysteryWordArray = mysteryWord.split('');
 
-                if (guessArray.includes(userGuess) === true ) { 
-                    alert ("Ooops!  You already guessed that. Try a different letter.");   
+               //Condition to test if letter was already guessed and return to game without costing user a guess.
+                if (guessArray.includes(userGuess) === true) {
+                    alert("Ooops!  You already guessed that. Try a different letter.");
                     return;
                 };
 
                 //puts guess into guessArray 
-                guessArray.push(userGuess); 
+                guessArray.push(userGuess);
 
                 if (mysteryWordArray.indexOf(userGuess) > -1) {
                     correctLettersArray.push(userGuess);
@@ -179,39 +169,21 @@
                     //puts letters in wrongLettersArray
                     wrongLettersArray.push(userGuess);
                     guessesRemaining--;
-                }   
+                }
+
+                displayWord();
+
+                score();
 
                 //displays guesses remaing in HTML
                 document.getElementById("guessesLeft").innerHTML = "<p> Guesses Remaining:" + guessesRemaining + "</p>";
 
-                //this function is updating the HTML id=all-letters-guessed
+                //displays wins in HTML
+                document.getElementById("wins").innerHTML = "<p>Wins: " + wins + "</p>";
 
+                //displays losses in HTML
+                document.getElementById("losses").innerHTML = "<p>Losses: " + lose + "</p>";
 
-console.log("mysteryWordArray-beforedisplay: " + mysteryWordArray);
-
-                displayWord();
-                
-
-
-console.log("guessArray-Before: " + guessArray);
-console.log("mysteryWord-before; " + mysteryWord);
-console.log("mysteryWordArray-before: " + mysteryWordArray);
-console.log("wordToDisplay-before;" + wordToDisplay);
-console.log("guessesRemainin-before:" + guessesRemaining);
-console.log("correctLettersArray-before:" + correctLettersArray); 
-
-            score();
-
-     
-console.log("guessArray-after: " + guessArray);
-console.log("mysteryWord-after; " + mysteryWord);
-console.log("mysteryWordArray-after: " + mysteryWordArray);
-console.log("wordToDisplay-after;" + wordToDisplay);
-console.log("guessesRemainin-after:" + guessesRemaining);
-console.log("correctLettersArray-after:" + correctLettersArray); 
-         
-               
-               
 
                 //pushes guessArray into all letters guessed id in HTML.
                 document.getElementById("all-letters-guessed").innerHTML = "Letters Guessed: " + guessArray.join(', ');
