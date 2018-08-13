@@ -4,8 +4,6 @@
 //stores some random words.  Computer guesses from this array.
 var randomArray = ["carrot", "lettuce", "brocolli", "onion", "celery", "radish", "kale", "asparagus", "cucumber", "cauliflower", "tomato", "eggplant", "zuchinni", "parsnip", "leek", "pepper"];
 
-
-
 //create an array to hold user guesses.
 var guessArray = [];
 
@@ -24,23 +22,25 @@ var mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)];
 //Creates a new empty array to hold current word//
 var mysteryWordArray = [];
 
+var cabbage = "./assets/images/cabbage.jpg";
+
+
 //setting up wins, losses, and #of guesses remaining.
 var wins = 0;
 var lose = 0;
 var guessesRemaining =  (Math.floor(mysteryWord.length * 1.5));
-console.log(guessesRemaining);
 
 //reset game function
 function reset() {
    // chooses a random word from randomArray
+   
     guessArray = [];
     mysteryWord = randomArray[Math.floor(Math.random() * randomArray.length)];;
     mysteryWordArray = [];
     wordToDisplay = [];
-    guessesRemaining = (Math.floor(mysteryWord.length * 1.5));
+    guessesRemaining = (Math.floor(mysteryWord.length * 1.5))+1;
     correctLettersArray = [];
-
-};
+    };
 
 //declare 
 var wordToDisplay = []
@@ -72,14 +72,18 @@ function score() {
         lose++;
         alert("You lost!");
         reset();  //use reset() to reset game.
+        prompt("press any key to start.");
     }
     else if (wordToDisplay.includes("_") !== true && guessesRemaining > 0) {
 
         wins++;
         alert("You Won!");
         reset();
+        prompt("press any key to start."); 
     }
 };
+
+
 
 //!!!!!!!!!!!!!!START OF JAVASCRIPT GAME!!!!!!!!!!!!!!!!!!!!!!!
 

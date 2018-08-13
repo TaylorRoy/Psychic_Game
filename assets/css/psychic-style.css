@@ -12,6 +12,11 @@ border-bottom-style: solid;
     background-color: #009900 !important;
 }
 
+.header {
+    font-family: 'Diplomata SC', cursive;
+    color: black;
+}
+
 .navbar-text {
     text-align: center;
    
@@ -31,16 +36,30 @@ p {
     border-right-width: 3px;
 border-right-style: solid;
 padding-right: 0px;
+border-left-width: 3px;
+border-left-style: solid;
 }
 
 
 
 #row2display {
     background-color: #99ff33;
+    border-right-width: 3px;
+    border-right-style: solid;
 }
 
 .vegetable-image {
     margin-top: 80px;
     width: 100%;
     height: 100$;
+}
+
+.sticky-bottom {
+    border-top-width: 3px;
+    border-top-style: solid;
+}
+
+#sticky-copyright {
+    text-align: center;
+   
 }
